@@ -16,7 +16,7 @@ func parse(reader *bufio.Reader, mainSectionName string) (Sections, error) {
   sections    := make(Sections)
   section     := mainSectionName
   options     := make(Options)
-  splitRegexp := regexp.MustCompile(`\s+`)
+  splitRegexp := regexp.MustCompile(`(\s*(:|=)\s*)|\s+`)
 
   for {
     line, err := reader.ReadString('\n')

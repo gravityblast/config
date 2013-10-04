@@ -23,12 +23,22 @@ func TestParse(t *testing.T) {
   qux
 
   [section_2]
+  a:1
+  b: 2
+  c : 3
+  d :4
+  e=5
+  f= 6
+  g = 7
+  h =8
+
+  [section_3]
 
   `
   reader := bufio.NewReader(strings.NewReader(content))
   sections, _ := parse(reader, "main")
 
-  assert.Equal(t, 3, len(sections))
+  assert.Equal(t, 4, len(sections))
 
   // Main section
   main_section := sections["main"]
@@ -45,5 +55,17 @@ func TestParse(t *testing.T) {
 
   // Section 2
   section_2 := sections["section_2"]
-  assert.Equal(t, 0, len(section_2))
+  assert.Equal(t, 8, len(section_2))
+  assert.Equal(t, "1", section_2["a"])
+  assert.Equal(t, "2", section_2["b"])
+  assert.Equal(t, "3", section_2["c"])
+  assert.Equal(t, "4", section_2["d"])
+  assert.Equal(t, "5", section_2["e"])
+  assert.Equal(t, "6", section_2["f"])
+  assert.Equal(t, "7", section_2["g"])
+  assert.Equal(t, "8", section_2["h"])
+
+  // Section 3
+  section_3 := sections["section_3"]
+  assert.Equal(t, 0, len(section_3))
 }
