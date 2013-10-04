@@ -1,14 +1,20 @@
 /*
 Package config parses files with format similar to INI files.
 Comments starts with '#' or ';'.
-Each line define a key and a value, both strings. They are separated with a space, you don't need to use an '=' or ':' between them.
+Each line define a key and a value, both strings. Between them you can use  =, : or just spaces.
 
-  key value with spaces
+  foo: bar
+  foo = bar
+  foo bar
 
 In the above example the key is 'key' and the value is 'value with spaces'.
 You can also specify sections:
 
-  [section name]
+  [section_1]
+  foo 1
+
+  [section_2]
+  foo 2
 
 All top level options are grouped in a main section. The main section name is passed to the ParseFile function.
 
