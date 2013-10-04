@@ -12,11 +12,19 @@ type Options map[string]string
 
 type Sections map[string]Options
 
+var commentSplitRegexp  = regexp.MustCompile(`[#;]`)
+
+var keyValueSplitRegexp = regexp.MustCompile(`(\s*(:|=)\s*)|\s+`)
+
+func cleanLine(line string) string {
+  chunks := commentSplitRegexp.Split(line, 2)
+  return strings.TrimSpace(chunks[0])
+}
+
 func parse(reader *bufio.Reader, mainSectionName string) (Sections, error) {
   sections    := make(Sections)
   section     := mainSectionName
   options     := make(Options)
-  splitRegexp := regexp.MustCompile(`(\s*(:|=)\s*)|\s+`)
 
   for {
     line, err := reader.ReadString('\n')
@@ -26,9 +34,9 @@ func parse(reader *bufio.Reader, mainSectionName string) (Sections, error) {
       return sections, err
     }
 
-    line = strings.TrimSpace(line)
+    line = cleanLine(line)
 
-    if len(line) == 0 || line[0] == '#' || line[0] == ';' {
+    if len(line) == 0 {
       continue
     }
 
@@ -37,7 +45,7 @@ func parse(reader *bufio.Reader, mainSectionName string) (Sections, error) {
       options = make(Options)
       section = line[1:(len(line) - 1)]
     } else {
-      values := splitRegexp.Split(line, 2)
+      values := keyValueSplitRegexp.Split(line, 2)
       if len(values) == 2 {
         options[values[0]] = values[1]
       }

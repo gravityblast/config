@@ -17,8 +17,8 @@ func TestParse(t *testing.T) {
 
   [section_1]
 
-  foo 3
-  bar        4
+  foo       3 # using spaces after the key
+  bar				4 # using tabs after the key
   baz 5 6
   qux
 
