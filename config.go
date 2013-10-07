@@ -42,8 +42,11 @@ func parse(reader *bufio.Reader, mainSectionName string) (Sections, error) {
 
     if line[0] == '[' && line[len(line) - 1] == ']' {
       sections[section] = options
-      options = make(Options)
       section = line[1:(len(line) - 1)]
+      options = sections[section] // check if section already exists
+      if options == nil {
+        options = make(Options)
+      }
     } else {
       values := keyValueSplitRegexp.Split(line, 2)
       if len(values) == 2 {
