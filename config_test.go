@@ -10,7 +10,8 @@ import (
 func TestParse(t *testing.T) {
   content := `
   # comment 1
-  ; comment 1
+  ; comment 2
+  // comment 3
 
   foo 1
   bar 2
@@ -19,7 +20,7 @@ func TestParse(t *testing.T) {
 
   foo       3 # using spaces after the key
   bar				4 # using tabs after the key
-  baz 5 6
+  baz 5 6   // value is "5 6"
   qux
 
   [section_2]
