@@ -48,10 +48,14 @@ func parse(reader *bufio.Reader, mainSectionName string) (Sections, error) {
         options = make(Options)
       }
     } else {
-      values := keyValueSplitRegexp.Split(line, 2)
+      values  := keyValueSplitRegexp.Split(line, 2)
+      key     := values[0]
+      value   := ""
       if len(values) == 2 {
-        options[values[0]] = values[1]
+        value = values[1]
       }
+
+      options[key] = value
     }
   }
 

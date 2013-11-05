@@ -38,7 +38,7 @@ func TestParse(t *testing.T) {
 
   baz 5 6     // value is "5 6"
   qux 7
-  quux // it doesn't have a value
+  quux // blank value
 
 
   `
@@ -55,11 +55,12 @@ func TestParse(t *testing.T) {
 
   // Section 1
   section_1 := sections["section_1"]
-  assert.Equal(t, 4, len(section_1))
+  assert.Equal(t, 5, len(section_1))
   assert.Equal(t, "3", section_1["foo"])
   assert.Equal(t, "4", section_1["bar"])
   assert.Equal(t, "5 6", section_1["baz"])
   assert.Equal(t, "7", section_1["qux"])
+  assert.Equal(t, "", section_1["quux"])
 
   // Section 2
   section_2 := sections["section_2"]
