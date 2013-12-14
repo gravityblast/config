@@ -11,7 +11,6 @@ func TestParse(t *testing.T) {
   content := `
   # comment 1
   ; comment 2
-  // comment 3
 
   foo 1
   bar 2
@@ -20,7 +19,7 @@ func TestParse(t *testing.T) {
 
   foo       3 # using spaces after the key
   bar				4 # using tabs after the key
-  // other options for section_1 after section_2
+  # other options for section_1 after section_2
 
   [section_2]
   a:1
@@ -32,13 +31,15 @@ func TestParse(t *testing.T) {
   g = 7
   h =8
 
+  url: http://example.com
+
   [section_3]
 
-  [section_1] // redefine section_1 without removing previous options
+  [section_1] # redefine section_1 without removing previous options
 
-  baz 5 6     // value is "5 6"
+  baz 5 6     # value is "5 6"
   qux 7
-  quux // blank value
+  quux # blank value
 
 
   `
@@ -64,7 +65,7 @@ func TestParse(t *testing.T) {
 
   // Section 2
   section_2 := sections["section_2"]
-  assert.Equal(t, 8, len(section_2))
+  assert.Equal(t, 9, len(section_2))
   assert.Equal(t, "1", section_2["a"])
   assert.Equal(t, "2", section_2["b"])
   assert.Equal(t, "3", section_2["c"])
@@ -73,6 +74,7 @@ func TestParse(t *testing.T) {
   assert.Equal(t, "6", section_2["f"])
   assert.Equal(t, "7", section_2["g"])
   assert.Equal(t, "8", section_2["h"])
+  assert.Equal(t, "http://example.com", section_2["url"])
 
   // Section 3
   section_3 := sections["section_3"]

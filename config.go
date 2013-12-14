@@ -12,7 +12,7 @@ type Options map[string]string
 
 type Sections map[string]Options
 
-var commentSplitRegexp  = regexp.MustCompile(`[#;]|//`)
+var commentSplitRegexp  = regexp.MustCompile(`[#;]`)
 
 var keyValueSplitRegexp = regexp.MustCompile(`(\s*(:|=)\s*)|\s+`)
 
